@@ -12,5 +12,6 @@ router.use("/subAdmin", require("./subAdminRoute"));
 router.use("/notification", require("./notificationRoute"));
 router.use("/blog", require("./blogRoute"));
 router.use("/rating", require("./ratingAndReviewRoute"));
+router.use("/callHistory", require("./callHistoryRoute"));
 
 module.exports = router;

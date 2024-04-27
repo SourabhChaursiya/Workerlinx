@@ -26,6 +26,32 @@ const workPostSchema = mongoose.Schema(
   }
 );
 
+const instantWorkPostSchema = mongoose.Schema(
+  {
+    description: {
+      type: String,
+    },
+    work: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    status: {
+      type: Boolean,
+      default: false,
+    },
+    duration: {
+      type: Number,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const savedWorkPostSchema = mongoose.Schema(
   {
     workpostData: {
@@ -35,7 +61,7 @@ const savedWorkPostSchema = mongoose.Schema(
     worker: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Worker",
-    }
+    },
   },
   {
     timestamps: true,
@@ -43,9 +69,14 @@ const savedWorkPostSchema = mongoose.Schema(
 );
 
 const WorkPost = mongoose.model("WorkPost", workPostSchema);
+const InstantWorkPost = mongoose.model(
+  "InstantWorkPost",
+  instantWorkPostSchema
+);
 const SavedWorkPost = mongoose.model("SavedWorkPost", savedWorkPostSchema);
 
 module.exports = {
   WorkPost,
-  SavedWorkPost
-}
+  SavedWorkPost,
+  InstantWorkPost,
+};

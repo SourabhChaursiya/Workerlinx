@@ -1,5 +1,9 @@
 const asyncHandler = require("express-async-handler");
-const { WorkPost, SavedWorkPost } = require("../model/workPostModel");
+const {
+  WorkPost,
+  InstantWorkPost,
+  SavedWorkPost,
+} = require("../model/workPostModel");
 const { Notification } = require("../model/notificationModel");
 const User = require("../model/userModel");
 const Worker = require("../model/workerModel");
@@ -37,6 +41,66 @@ const createWorkPost = asyncHandler(async (req, res) => {
     throw new Error("data is not valid!");
   }
 });
+
+// const createInstantWorkPost = asyncHandler(async (req, res) => {
+//   const { description, work, duration } = req.body;
+//   const user = req.user;
+
+//   const userData = await User.findById(user);
+
+//   if ((!description, !work, !duration)) {
+//     res.status(404);
+//     throw new Error("All Fields required!");
+//   }
+
+//   const workpost = await InstantWorkPost.create({
+//     description,
+//     work,
+//     user,
+//     duration,
+//   });
+
+//   setTimeout(async () => {
+//     await InstantWorkPost.findByIdAndDelete(InstantWorkPost._id);
+//   }, duration * 3600000);
+
+//   if (workpost) {
+//     res.status(201).json({ message: "Instant Work Post Created!", workpost });
+//     await Notification.create({
+//       notification: `${userData.username} Posted new Instant job!!`,
+//     });
+//   } else {
+//     res.status(400);
+//     throw new Error("data is not valid!");
+//   }
+// });
+
+// const updateInstantWorkPost = asyncHandler(async (req, res) => {
+//   const { description, work } = req.body;
+//   const postId = req.params.id;
+
+//   if ((!description, !work)) {
+//     res.status(404);
+//     throw new Error("All Fields required!");
+//   }
+
+//   const workpost = await InstantWorkPost.findByIdAndUpdate(postId, {
+//     description,
+//     work,
+//   });
+
+//   if (!workpost) {
+//     res.status(404);
+//     throw new Error("Post not found!");
+//   }
+
+//   if (workpost) {
+//     res.status(201).json({ message: "Work Post Updated!", workpost });
+//   } else {
+//     res.status(400);
+//     throw new Error("data is not valid!");
+//   }
+// });
 
 const updateWorkPost = asyncHandler(async (req, res) => {
   const { description, work } = req.body;
@@ -474,5 +538,5 @@ module.exports = {
   saveWorkpost,
   deleteSavedWorkPost,
   getSavedWorkPost,
-  getVerifiedWorkPost
+  getVerifiedWorkPost,
 };
